@@ -6,6 +6,7 @@ import { UserAuthValidator } from 'src/validators/auth_user.validator';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 import { generateJwt } from 'src/helpers/generateJwt';
+import { sidebarData } from 'src/helpers/sidebar-data';
 
 @Controller('auth')
 export class AuthController {
@@ -35,10 +36,12 @@ export class AuthController {
     }
 
     const token = await generateJwt(user.id);
+    const sData = sidebarData(user.type);
 
     return res.json({
       user,
-      token
+      token,
+      sidebarData: sData
     });
 
     
@@ -58,10 +61,12 @@ export class AuthController {
     }
 
     const token = await generateJwt(user.id);
+    const sData = sidebarData(user.type);
 
     return res.status(HttpStatus.OK).json({
       user,
-      token
+      token,
+      sidebarData: sData
     });
 
   }
