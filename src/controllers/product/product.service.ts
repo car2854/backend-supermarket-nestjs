@@ -13,8 +13,7 @@ export class ProductService {
     private productRepository: Repository<Product>
   ){}
 
-  public create = (id: number, data: any) => {
-    data.user_table_id = id;
+  public create = (data: any) => {
     const newProduct = this.productRepository.create(data);
     return this.productRepository.save(newProduct);
   }
@@ -25,7 +24,12 @@ export class ProductService {
   }
 
   public find = () => {
-    return this.productRepository.find({where: {is_active: true}});
+    return this.productRepository.find({
+        where: {
+          is_active: true
+        },
+        relations: ['category', 'user_table']
+      });
   }
 
   public update = (id:number, productData: UpdateProductValidator) => {

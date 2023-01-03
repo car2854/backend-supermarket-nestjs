@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./product.entity";
 
 @Entity()
 export class Category{
@@ -6,5 +7,8 @@ export class Category{
   id: number;
 
   @Column()
-  name: string
+  name: string;
+
+  @OneToMany(() => Product, (product) => product.id, {cascade: ['insert', 'update']})
+  products: Product[]
 }
