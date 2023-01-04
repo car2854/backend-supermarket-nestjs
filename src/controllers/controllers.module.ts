@@ -9,13 +9,14 @@ import { ValidateTokenMiddleware } from 'src/middlewares/validateToken';
 
 import { UserController } from './user/user.controller';
 import { CategoryModule } from './category/category.module';
+import { MapModule } from './map/map.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserTable]),
     AuthModule, 
     ProductModule, 
-    UserModule, CategoryModule
+    UserModule, CategoryModule, MapModule
   ],
   controllers: []
 })

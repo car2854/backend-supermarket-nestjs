@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/entities/product.entity';
 import { UpdateProductValidator } from 'src/validators/update_product.validator';
-import { Repository } from 'typeorm';
+import { Repository, ILike } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -23,11 +23,13 @@ export class ProductService {
     return this.productRepository.findOne({where: {id: id, is_active: true}});
   }
 
-  public find = () => {
+  public find = (query:string) => {
     return this.productRepository.find({
         where: {
-          is_active: true
+          is_active: true,
+          name: ILike(`%${query}%`)
         },
+        
         relations: ['category', 'user_table']
       });
   }

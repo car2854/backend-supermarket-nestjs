@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res, Body, Param, HttpStatus, Put } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, Body, Param, HttpStatus, Put, Query } from '@nestjs/common';
 import { Response } from 'express';
 import { Product } from 'src/entities/product.entity';
 import { CreateProductValidator } from 'src/validators/create_product.validator';
@@ -17,9 +17,9 @@ export class ProductController {
   ){}
 
   @Get()
-  public async getProducts(@Req() req, @Res() res){
+  public async getProducts(@Req() req, @Res() res, @Query() query){
 
-    const products = await this.productService.find();
+    const products = await this.productService.find(query.data);
 
     return res.status(HttpStatus.OK).json({
       products

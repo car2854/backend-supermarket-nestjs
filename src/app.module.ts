@@ -28,7 +28,7 @@ import { Category } from './entities/category.entity';
       autoLoadEntities: true,
       
     }),
-    ControllersModule
+    ControllersModule,
   ],
   controllers: [],
   providers: [],
